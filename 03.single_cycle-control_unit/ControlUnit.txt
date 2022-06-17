@@ -1,0 +1,19 @@
+RISC-V control unit flags
+
+  ALUOp (4 bits)
+  RegWrite (1 bit)
+  ALUSrc (2 bits)
+  MemRead (1 bit)
+  MemWrite (1 bit)
+  MemToReg (1 bit)
+  
+Nme	OpCode	ALUOp RW ALUS MR MW MT
+Type-R	0110011 f3/f7  1  00   0  0  0
+Type-I	0010011 f3/f7  1  01   0  0  0
+ LW	0000011  0000  1  01   1  0  1
+Type-S
+ SW	0100011  0000  0  10   0  1  0
+Type-B	1100011  0001  0  11   0  0  0
+Type-J	1101111  0000  0  00   0  0  0
+
+

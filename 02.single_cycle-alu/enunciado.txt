@@ -1,0 +1,40 @@
+Cada estudiante debe construir una ALU basada en los siguientes parámetros:
+
+   Entradas:
+
+     Dos entradas de 32 bits para los operandos. DONE.
+
+     Una entrada de cuatro bits para definir la operación a realizar. DONE.
+
+   Salidas:
+
+      Una salida de 32 bits con el resultado de la operación
+
+      Varias salidas de un bit, banderas, para indicar el estado de la CPU luego de la operación 
+(Zero flag por ahora)
+
+   Operaciones:
+
+      Como vimos en la clase las operaciones a realizar dependen de las instrucciones que queremos 
+simular y sus respectivos códigos de operación.
+
+
+PREGUNTAS:
+1. Que significan: SLL, SLT, SLTU, SRL, SRA?
+SLL, shift left logical
+SLT, set less than
+SLTU, set less than unsigned
+SRL, shift right logical
+SRA, shift right arithmetic
+
+2. Como puedo poner los shifter?
+Recuerden que es una unidad funcional de Logisim, asi que basta con colocarla en el circuito y configurarla adecuadamente, para que haga la función solicitada.
+
+3. Como puedo mezclar la salida de todos esos componentes y que a la vez se seleccione la salida correcta usando el opcode?
+Utilizando un multiplexor, como hicimos en el "Register File", para seleccionar el registro que debe ir a la salida.
+
+4. Con esa única entrada estoy bien (input01) o son dos de esas?
+El ALU tiene una única salida para el resultado de 32 bits, pero es importante para los "branch" que el ALU nos indique si el resultado fue cero, mayor que cero o menor que cero. Entonces, nuestro ALU debe tener cuatro salidas, una para el resultado de 32 bits, y las otras tres de un bit para saber cual fue el resultado de la operación.
+
+5. En este caso no es necesario el uso de registros en ninguna parte de la ALU o si?
+La operación del ALU es combinacional totalmente, no son necesarios elementos de memoria.
