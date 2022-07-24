@@ -82,11 +82,11 @@ void Cache::read_trace() {
     trace->getNext( &operation, &address );
     if ( '/' != operation ) {
       printf( "%c %ld\n", operation, address );
-      if ( 'L' == operation ) {
-        load( address, 0 );
-      } else if ( 'S' == operation ) {
-        store( address, 0 );
-      }
+      // if ( 'L' == operation ) {
+      //   this->load( address );
+      // } else if ( 'S' == operation ) {
+      //   this->store( address );
+      // }
     }
   }
 }
@@ -97,3 +97,32 @@ void Cache::run() {
   print_stats();
 }
 
+long Cache::get_set(long address, long *set) {
+  *set = address / this->block;
+  return *set;
+}
+
+long Cache::get_tag(long address, long *tag) {
+  *tag = address / (this->block * this->assoc);
+  return *tag;
+}
+
+long Cache::get_index(long address, long *index) {
+  *index = (address % (this->block * this->assoc)) / this->block;
+  return *index;
+}
+
+long Cache::get_block(long address, long *block) {
+  *block = address % this->block;
+  return *block;
+}
+
+long Cache::get_offset(long address, long *offset) {
+  *offset = address % this->block;
+  return *offset;
+}
+
+long Cache::get_address(long set, long tag, long block) {
+  long address = (set * this->block) + block;
+  return address;
+}

@@ -37,10 +37,16 @@ class Cache {
 
     // Cache memory
     long** cache;
+    long get_set(long address, long *set);
+    long get_tag(long address, long *tag);
+    long get_index(long address, long *index);
+    long get_block(long address, long *block);
+    long get_offset(long address, long *offset);
+    long get_address(long set, long tag, long block);
 
     // Cache functions
-    void store( long, long );
-    void load( long, long );
+    void store(long address);
+    void load(long address);
 
     // Simulation
     void read_trace();
