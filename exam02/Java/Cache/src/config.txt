@@ -1,0 +1,11 @@
+4
+4
+4
+true
+false
+true
+true
+fifo
+1
+1
+emma_cache
