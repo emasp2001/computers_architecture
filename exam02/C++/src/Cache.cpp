@@ -322,11 +322,11 @@ class Cache {
     char operation;
     long address;
 
-    printf("Contenidos del Archivo Trace\n");
+    //printf("Contenidos del Archivo Trace\n");
     while ( trace->hasNext() ) {
       trace->getNext( &operation, &address );
       if ( '/' != operation ) {
-        printf( "%c %ld\n", operation, address );
+        //printf( "%c %ld\n", operation, address );
         if ( 'L' == operation ) {
           this->load( address );
         } else if ( 'S' == operation ) {
