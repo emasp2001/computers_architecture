@@ -94,7 +94,7 @@ int main( int argc, char * argv[] ) {
 
   Cache * cache = new Cache(lines, assoc, block, timeLevel1, timeLevel2, alloc, write, algor, filename);
   cache->run();
-  cache->~Cache();
+  //cache->~Cache();
   
   return 0;
 }
