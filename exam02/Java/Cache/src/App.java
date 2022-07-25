@@ -4,7 +4,6 @@ import java.util.Scanner;
 
 public class App {
   public static void main(String[] args) {
-    cache.print_statistics();
     Cache cache = read_cache_parameters("/Users/emma/Documents/university/Arquitectura_Computadoras/github_repo-arqui_computadores/exam02/Java/src/config.txt");
     cache.simulate("/Users/emma/Documents/university/Arquitectura_Computadoras/github_repo-arqui_computadores/exam02/Java/src/trace.txt");
   }
