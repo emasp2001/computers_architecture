@@ -12,7 +12,7 @@
 #include <algorithm>
 #include <string>
 #include <iostream>
-#include "Cache.cpp"
+#include "Memory.cpp"
 
 char* getCmdOption(char ** begin, char ** end, const std::string & option) {
   char ** itr = std::find( begin, end, option );
@@ -92,8 +92,8 @@ int main( int argc, char * argv[] ) {
     strcpy(filename, file.c_str());
   }
 
-  Cache *my_cache = new Cache(lines, assoc, block, timeLevel1, timeLevel2, alloc, write, algor, filename);
-  my_cache->run();
+  Cache * cache = new Cache(lines, assoc, block, timeLevel1, timeLevel2, alloc, write, algor, filename);
+  cache->run();
   
   return 0;
 }

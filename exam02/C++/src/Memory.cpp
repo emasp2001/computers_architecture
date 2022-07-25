@@ -21,13 +21,13 @@ class Cache {
   int** cache;
 
   // Statistics
-    int total_loads;
-    int total_stores;
-    int load_hits;
-    int load_misses;
-    int store_hits;
-    int store_misses;
-    int total_cpu_cycles;
+  int total_loads;
+  int total_stores;
+  int load_hits;
+  int load_misses;
+  int store_hits;
+  int store_misses;
+  int total_cpu_cycles;
 
   Cache(int sets, int block_set, int bytes_block, int timeLevel1, int timeLevel2, int alloc, int write, int algor, std::string traceFile="../data/Traza-1.txt") {
     this->sets = sets;
@@ -64,13 +64,13 @@ class Cache {
 
   void print_configuration() {
     printf( "Configuración de la memoria cache\n" );
-    printf( "       Líneas: %ld\n", this->sets );
-    printf( "Asociatividad: %ld\n", this->block_set );
-    printf( "  Tam. bloque: %ld\n", this->bytes_block );
-    printf( "Tiempo niv. 1: %ld\n", this->timeLevel1 );
-    printf( "Tiempo niv. 2: %ld\n", this->timeLevel2 );
-    printf( " Asigna Escr.: %ld\n", this->alloc );
-    printf( "Estrat. Escr.: %ld\n", this->write );
+    printf( "       Líneas: %d\n", this->sets );
+    printf( "Asociatividad: %d\n", this->block_set );
+    printf( "  Tam. bloque: %d\n", this->bytes_block );
+    printf( "Tiempo niv. 1: %d\n", this->timeLevel1 );
+    printf( "Tiempo niv. 2: %d\n", this->timeLevel2 );
+    printf( " Asigna Escr.: %d\n", this->alloc );
+    printf( "Estrat. Escr.: %d\n", this->write );
     switch (this->algor) {
     case 0:
       printf( "Algor. Reempl: %s\n", "FIFO" );
@@ -250,5 +250,77 @@ class Cache {
     }
   }
 
-  
+  // A load misses is when the address is not in the cache.
+  // A store misses is when the address is not in the cache and the cache is full.
+  // A load hit is when the address is in the cache.
+  // A store hit is when the address is in the cache and the cache is full.
+  void load(int address) {
+    this->total_loads++;
+    int set = this->get_set(address);
+    int tag = this->get_tag(address);
+    if (this->is_in_cache(address)) {
+      this->load_hits++;
+    } else {
+      this->load_misses++;
+      if (this->is_full()) {
+        this->store_misses++;
+      }
+      this->replace_block(set, tag);
+    }
+  }
+
+  void store(int address) {
+    this->total_stores++;
+    int set = this->get_set(address);
+    int tag = this->get_tag(address);
+    if (this->is_in_cache(address)) {
+      this->store_hits++;
+    } else {
+      this->store_misses++;
+      if (this->is_full()) {
+        this->store_misses++;
+      }
+      this->replace_block(set, tag);
+    }
+  }
+
+  void read_trace() {
+    // std::ifstream trace_file;
+    // trace_file.open(this->traceFile);
+    // if (!trace_file.is_open()) {
+    //   std::cout << "Error opening trace file" << std::endl;
+    //   exit(1);
+    // }
+    // std::string line;
+    // while (std::getline(trace_file, line)) {
+    //   if (line.substr(0, 1) == "L") {
+    //     this->load(std::stoi(line.substr(2)));
+    //   } else if (line.substr(0, 1) == "S") {
+    //     this->store(std::stoi(line.substr(2)));
+    //   }
+    // }
+    // trace_file.close();
+
+  Trace * trace = new Trace( this->traceFile );
+  char operation;
+  long address;
+
+  printf("Contenidos del Archivo Trace\n");
+  while ( trace->hasNext() ) {
+    trace->getNext( &operation, &address );
+    if ( '/' != operation ) {
+      printf( "%c %ld\n", operation, address );
+      if ( 'L' == operation ) {
+        this->load( address );
+      } else if ( 'S' == operation ) {
+        this->store( address );
+      }
+    }
+  }
+  }
+
+  void run() {
+    this->read_trace();
+    print_stats();
+  }
 };
