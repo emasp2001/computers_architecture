@@ -4,14 +4,9 @@ import java.util.Scanner;
 
 public class App {
   public static void main(String[] args) {
-    // Read from command line the file name
-    String file_name = "config.txt";
-    Cache cache = read_cache_parameters(file_name);
-    System.out.println(cache);
-    // Run the simulation.
-    cache.read_trace("trace.txt");
-    // Print the statistics.
     cache.print_statistics();
+    Cache cache = read_cache_parameters("/Users/emma/Documents/university/Arquitectura_Computadoras/github_repo-arqui_computadores/exam02/Java/src/config.txt");
+    cache.simulate("/Users/emma/Documents/university/Arquitectura_Computadoras/github_repo-arqui_computadores/exam02/Java/src/trace.txt");
   }
 
   // A method to read the parameters for the cache from a file: cache_parameters.txt
@@ -33,15 +28,11 @@ public class App {
       String name = scanner.next();
       scanner.close();
       my_cache = new Cache(cache_sets, blocks_sets, bytes_per_block, write_allocate, no_write_allocate, write_back, write_through, replace_algorithm, time_first_access, time_n_access, name);
+      return my_cache;
     } catch (FileNotFoundException e) {
+      System.out.println("hubo un error");
       e.printStackTrace();
+      return null;
     }
-    return my_cache;
-  }
-  
-  // A method to run the complete simulation
-  public void simulate(Cache cache, String file_name) {
-    // Read from command line the file name
-    cache.read_trace(file_name);
   }
 }

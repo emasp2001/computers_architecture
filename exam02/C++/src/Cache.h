@@ -45,8 +45,15 @@ class Cache {
     long get_address(long set, long tag, long block);
 
     // Cache functions
-    void store(long address);
-    void load(long address);
+    void store(int set, int tag, int block);
+    void load(int set, int tag, int block);
+    bool is_in_cache(int set, int tag);
+    bool is_full();
+    int get_first_block(int set);
+    void remove_block(int set, int block);
+    int get_random_block(int set);
+    int get_lru_block(int set);
+    void add_block(int set, int tag, int block);
 
     // Simulation
     void read_trace();

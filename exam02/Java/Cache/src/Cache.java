@@ -1,11 +1,6 @@
-import java.util.ArrayList;
 import java.util.Scanner;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.Random;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
 
 public class Cache {
   // Memory attributes.
@@ -58,40 +53,11 @@ public class Cache {
   }
 
   // A simulate method that simulates the cache.
-  public void simulate() {
+  public void simulate(String trace_file_name) {
     // Read from command line the file name
-    String file_name = "config.txt";
-    Cache cache = read_cache_parameters(file_name);
-    // Read from command line the file name
-    file_name = "trace.txt";
-    cache.read_trace(file_name);
+    read_trace(trace_file_name);
     // Print the statistics.
-    cache.print_statistics();
-  }
-
-  // A method to read the parameters for the cache from a file: cache_parameters.txt
-  public static Cache read_cache_parameters(String file_name) {
-    Cache my_cache = null;
-    try {
-      File file = new File(file_name);
-      Scanner scanner = new Scanner(file);
-      int cache_sets = scanner.nextInt();
-      int blocks_sets = scanner.nextInt();
-      int bytes_per_block = scanner.nextInt();
-      Boolean write_allocate = scanner.nextBoolean();
-      Boolean no_write_allocate = scanner.nextBoolean();
-      Boolean write_back = scanner.nextBoolean();
-      Boolean write_through = scanner.nextBoolean();
-      String replace_algorithm = scanner.next();
-      String time_first_access = scanner.next();
-      String time_n_access = scanner.next();
-      String name = scanner.next();
-      scanner.close();
-      my_cache = new Cache(cache_sets, blocks_sets, bytes_per_block, write_allocate, no_write_allocate, write_back, write_through, replace_algorithm, time_first_access, time_n_access, name);
-    } catch (FileNotFoundException e) {
-      e.printStackTrace();
-    }
-    return my_cache;
+    print_statistics();
   }
 
   // A method to read the trace from a file: trace.txt
@@ -299,10 +265,3 @@ public class Cache {
   }
 
 }
-
-// Create a based configuration file for the cache.
-// Name: cache.txt
-// Format: cache_sets, cache_blocks, cache_bytes_per_block, cache_write_allocate, cache_no_write_allocate, cache_write_back, cache_write_through, cache_replace_algorithm, cache_time_first_access, cache_time_n_access, cache_name
-// Example: cache_sets, cache_blocks, cache_bytes_per_block, cache_write_allocate, cache_no_write_allocate, cache_write_back, cache_write_through, cache_replace_algorithm, cache_time_first_access, cache_time_n_access, cache_name
-// Example: 4, 4, 4, write_allocate, no_write_allocate, write_back, write_through, fifo, 1, 1, cache_name
-
