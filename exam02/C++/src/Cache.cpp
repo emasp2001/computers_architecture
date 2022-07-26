@@ -259,11 +259,11 @@ class Cache {
     int block_set = this->get_block_set(address);
     int block_set_address = this->get_block_set_address(address);
     if (this->alloc) {
-      this->total_loads++;
+      //this->total_loads++;
       if (this->is_in_cache(address)) {
-        this->load_hits++;
+        //this->load_hits++;
       } else {
-        this->load_misses++;
+        //this->load_misses++;
         if (this->is_full()) {
           this->replace_block(set, block);
         } else {
@@ -271,11 +271,11 @@ class Cache {
         }
       }
     } else {
-      this->total_stores++;
+      //this->total_stores++;
       if (this->is_in_cache(address)) {
-        this->store_hits++;
+        //this->store_hits++;
       } else {
-        this->store_misses++;
+        //this->store_misses++;
         if (this->is_full()) {
           this->replace_block(set, block);
         } else {
