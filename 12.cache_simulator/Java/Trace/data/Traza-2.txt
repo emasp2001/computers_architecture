@@ -1,0 +1,15 @@
+// Mismos parámetros que en la primera traza
+//
+// ./cacheSim.out -c 4 -s 1 -b 16 -t1 13 -t2 230 -y no-write-allocate -w write-through -r lru < Traza-1.txt
+//
+L 0
+L 0
+L 0
+L 0
+S 0,5
+L 0
+L 0
+L 0
+S 0,6
+L 0
+
